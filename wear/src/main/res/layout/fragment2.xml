@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/back2" />
+
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        android:id="@+id/circularProgressBar_RPM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cpb_background_progressbar_color="#00000000"
+        app:cpb_background_progressbar_width="0dp"
+        app:cpb_progress_direction="to_right"
+        app:cpb_progress_max="8000"
+        app:cpb_progressbar_color="#E9ECA7"
+        app:cpb_progressbar_width="10dp"
+        app:cpb_round_border="true" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/fr2_tv_rpm"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="75dp"
+            android:fontFamily="@font/helvetica33"
+            android:gravity="right"
+            android:text="0"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/helvetica33"
+            android:text=" RPM"
+            app:layout_constraintBottom_toBottomOf="@+id/fr2_tv_rpm"
+            app:layout_constraintStart_toEndOf="@+id/fr2_tv_rpm" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.wear.widget.BoxInsetLayout>

@@ -54,8 +54,6 @@ public class IntroActivity extends AppCompatActivity {
                             Manifest.permission.BLUETOOTH_SCAN,
                             Manifest.permission.BLUETOOTH_ADVERTISE,
                             Manifest.permission.BLUETOOTH_CONNECT
-
-
                     },
                     1);
 
@@ -85,7 +83,7 @@ public class IntroActivity extends AppCompatActivity {
                     startActivityForResult(intent, 1);
 
                 } else {
-                    //블루투스가 활성상태일 경우 위치 권한 사용여부 판별
+                    //블루투스가 활성상태일 경우 3초뒤 메인화면으로 전환
                     handler.postDelayed(runnable, 3000);
                 }
             }
@@ -108,7 +106,7 @@ public class IntroActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode){
-            case 1: // 84번 줄에서 requestCode 값 1
+            case 1: // 83번 줄에서 requestCode 값 1
                 if(resultCode==RESULT_OK){
                     // 블루투스 기능을 활성화 시켰을 때
                     Toast.makeText(getApplicationContext(), "블루투스를 활성화합니다.", Toast.LENGTH_SHORT).show();

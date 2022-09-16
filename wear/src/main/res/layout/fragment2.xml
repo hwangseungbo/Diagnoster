@@ -2,14 +2,14 @@
 <androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="450px"
+    android:layout_height="450px">
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/back2" />
+        android:background="@drawable/page2_back" />
 
     <com.mikhaellopez.circularprogressbar.CircularProgressBar
         android:id="@+id/circularProgressBar_RPM"
@@ -27,26 +27,73 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/fr2_tv_rpm"
-            android:layout_width="120sp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="75dp"
-            android:fontFamily="@font/helvetica33"
-            android:gravity="right"
-            android:text="0"
-            android:textSize="30sp"
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="101px"
+            android:layout_height="18px"
+            android:layout_marginBottom="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.518"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/kmcp_nosignal" />
+
+        <ImageView
+            android:id="@+id/fr2_iv_page"
+            android:layout_width="82px"
+            android:layout_height="10px"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/page_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/fr2_tv_cool"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="46dp"
+            android:layout_marginEnd="36dp"
+            android:fontFamily="@font/helvetica33"
+            android:gravity="right"
+            android:text="0"
+            android:textColor="#BCBCBC"
+            android:textSize="58sp"
+            app:layout_constraintEnd_toEndOf="@+id/fr1_tv_hourstext"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/fr1_tv_hourstext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/helvetica33"
+            android:text="  °C"
+            android:textColor="#BCBCBC"
+            android:textSize="29sp"
+            app:layout_constraintBottom_toBottomOf="@+id/fr2_tv_cool"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/fr2_tv_coolanttext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/helvetica33"
-            android:text=" RPM"
-            app:layout_constraintBottom_toBottomOf="@+id/fr2_tv_rpm"
-            app:layout_constraintStart_toEndOf="@+id/fr2_tv_rpm" />
+            android:text="Coolant temperature"
+            android:textColor="#BCBCBC"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@+id/fr1_tv_hourstext"
+            app:layout_constraintTop_toBottomOf="@+id/fr1_tv_hourstext" />
+
+        <ImageView
+            android:id="@+id/fr2_iv_cool"
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:src="@drawable/nosignal_cool"
+            android:layout_marginStart="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/fr1_tv_hourstext"
+            app:layout_constraintStart_toEndOf="@+id/fr2_tv_cool" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.wear.widget.BoxInsetLayout>

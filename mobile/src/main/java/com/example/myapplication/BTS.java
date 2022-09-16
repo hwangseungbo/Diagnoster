@@ -97,6 +97,8 @@ public class BTS extends Thread {
     }
 
 
+
+
     // Constructor
     BTS(){
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();

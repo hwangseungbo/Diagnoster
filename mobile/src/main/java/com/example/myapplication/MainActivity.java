@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat;
 import static com.example.myapplication.BTS.bts;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -19,6 +20,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
@@ -26,13 +28,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,6 +58,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -72,12 +78,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Animation fab_open, fab_close;
     private boolean isFabOpen = false;
     private Set<BluetoothDevice> devices;   // 블루투스 디바이스 데이터 셋
-    private BluetoothDevice bluetoothDevice; // 블루투스 디바이스
     private static ItemAdapter adapter;
     //GPS관련 변수 3종
     public static LocationManager locationManager;
     public static Location mLastlocation = null;
     public static double speed;
+    public static boolean watchDataInitialization = true;
 
     public EditText et_KNOT;
 
@@ -172,6 +178,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         stateFilter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);  //기기 검색 종료
         stateFilter.addAction(BluetoothDevice.ACTION_PAIRING_REQUEST);
         registerReceiver(mBluetoothStateReceiver, stateFilter);
+
+
 
 
         /*fab 애니메이션 정의*/
@@ -272,6 +280,84 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
+        if(watchDataInitialization){
+
+            //워치데이터 초기화 : 값이 변경될 경우에만 워치에서 반영되기 때문에 모바일 앱을 실행시 초기값 0으로 완전히 초기화 해준다.
+            //워치데이터(RPM) 1page-190 /watch1
+            PutDataMapRequest watchData = PutDataMapRequest.create("/watch1");
+            watchData.getDataMap().putString("190", "0");
+            PutDataRequest putDataReq = watchData.asPutDataRequest();
+            watchData.setUrgent();  //데이터 지연을 막기위해 호출
+            Task<DataItem> putDataTask = Wearable.getDataClient(getApplicationContext()).putDataItem(putDataReq);
+            //워치데이터(총엔진동작시간) 1p-247 /watch2
+            watchData = PutDataMapRequest.create("/watch2");
+            watchData.getDataMap().putString("247", "0");
+            putDataReq = watchData.asPutDataRequest();
+            watchData.setUrgent();  //데이터 지연을 막기위해 호출
+            putDataTask = Wearable.getDataClient(getApplicationContext()).putDataItem(putDataReq);
+            //워치데이터(냉각수온도) 2p-110 /watch3
+            watchData = PutDataMapRequest.create("/watch3");
+            watchData.getDataMap().putString("110", "0");
+            putDataReq = watchData.asPutDataRequest();
+            watchData.setUrgent();  //데이터 지연을 막기위해 호출
+            putDataTask = Wearable.getDataClient(getApplicationContext()).putDataItem(putDataReq);
+            //워치데이터(연료%) 3p-96 /watch4
+            watchData = PutDataMapRequest.create("/watch4");
+            watchData.getDataMap().putString("96", "0");
+            putDataReq = watchData.asPutDataRequest();
+            watchData.setUrgent();  //데이터 지연을 막기위해 호출
+            putDataTask = Wearable.getDataClient(getApplicationContext()).putDataItem(putDataReq);
+            //워치데이터(연비:현재시속기준) 3p-184 /watch5
+            watchData = PutDataMapRequest.create("/watch5");
+            watchData.getDataMap().putString("184", "0");
+            putDataReq = watchData.asPutDataRequest();
+            watchData.setUrgent();  //데이터 지연을 막기위해 호출
+            putDataTask = Wearable.getDataClient(getApplicationContext()).putDataItem(putDataReq);
+            //워치데이터(배터리 볼티지) 4p-168 /watch6
+            watchData = PutDataMapRequest.create("/watch6");
+            watchData.getDataMap().putString("168", "0");
+            putDataReq = watchData.asPutDataRequest();
+            watchData.setUrgent();  //데이터 지연을 막기위해 호출
+            putDataTask = Wearable.getDataClient(getApplicationContext()).putDataItem(putDataReq);
+
+            watchDataInitialization = false;
+        }
+
+
+        //원형큐에 메세지가 있을때 던저줌
+        SendMessageThread SMT = new SendMessageThread();
+        SMT.start();
+
+        EditText et_senddata = findViewById(R.id.et_senddata);
+        //커서없애기
+        et_senddata.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                String inText = v.getText().toString();
+                v.setCursorVisible(false);
+                hideKeyboard();
+                return true;
+            }
+        });
+
+
+        //send 버튼 클릭 이벤트
+        Button btn_initial = findViewById(R.id.btn_initial);
+        btn_initial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //ArrayQueue.getInstance().enqueue("c can_start");
+                //ArrayQueue.getInstance().enqueue("c can_start\r\n");
+                ArrayQueue.getInstance().enqueue(et_senddata.getText().toString()+"\r\n");
+                et_senddata.setText("");
+            }
+        });
+
+
+
+
+
+        TextView tv_ecudata = findViewById(R.id.tv_ecudata);
         /*블루투스 핸들러로 블루트스 연결 뒤 수신된 데이터를 읽어옴. 여기서 데이터 값들에 대한 처리.*/
         BTS.getInstance().mBluetoothHandler = new Handler(new Handler.Callback() {
             @Override
@@ -280,8 +366,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     String ecuData = null;
 
+
                     try{
-                        ecuData = new String((byte[]) msg.obj, "UTF-8");
+                        ecuData = new String((byte[]) msg.obj, StandardCharsets.UTF_8);
+                        //Toast.makeText(mContext, ecuData , Toast.LENGTH_SHORT).show();
+                        tv_ecudata.setText("ecudata : " +  ecuData);
+                        if(!ecuData.substring(0,1).equals("e")){
+                            ecuData = "e" + ecuData;
+                        }
+                        //Toast.makeText(mContext, ecuData , Toast.LENGTH_SHORT).show();
+
+
                         //index 10 ~ 25, 총 16개의 헥스값으로 2개당 1바이트 총 8바이트이다.
                         String ecuSubData = ecuData.substring(3,7);
                         if(ecuSubData.equals("f003")){
@@ -344,7 +439,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             adapter.items.get(4).setVal(ecuSubData + "%");
                             adapter.notifyDataSetChanged();
 
-                            //워치 데이터 1page-190 /watch1
+                            //워치데이터(RPM) 1page-190 /watch1
                             PutDataMapRequest watchData = PutDataMapRequest.create("/watch1");
                             watchData.getDataMap().putString("190", data3);
                             PutDataRequest putDataReq = watchData.asPutDataRequest();
@@ -384,7 +479,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             adapter.items.get(6).setVal(ecuSubData + " r");
                             adapter.notifyDataSetChanged();
 
-                            //워치 데이터 1p-247 /watch2
+                            //워치데이터(총엔진동작시간) 1p-247 /watch2
                             PutDataMapRequest watchData = PutDataMapRequest.create("/watch2");
                             watchData.getDataMap().putString("247", data5);
                             PutDataRequest putDataReq = watchData.asPutDataRequest();
@@ -477,7 +572,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             adapter.items.get(12).setVal(ecuSubData + " %");
                             adapter.notifyDataSetChanged();
 
-                            //워치 데이터 2p-110 /watch3
+                            //워치데이터(냉각수온도) 2p-110 /watch3
+                            PutDataMapRequest watchData = PutDataMapRequest.create("/watch3");
+                            watchData.getDataMap().putString("110", data7);
+                            PutDataRequest putDataReq = watchData.asPutDataRequest();
+                            watchData.setUrgent();  //데이터 지연을 막기위해 호출
+                            Task<DataItem> putDataTask = Wearable.getDataClient(getApplicationContext()).putDataItem(putDataReq);
 
                         } else if(ecuSubData.equals("feef")){
                             //65263
@@ -581,6 +681,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             adapter.items.get(19).setVal(ecuSubData + " km/L");
                             adapter.notifyDataSetChanged();
 
+                            //워치데이터(연비:현재시속기준) 3p-184 /watch5
+                            PutDataMapRequest watchData = PutDataMapRequest.create("/watch5");
+                            watchData.getDataMap().putString("184", data18);
+                            PutDataRequest putDataReq = watchData.asPutDataRequest();
+                            watchData.setUrgent();  //데이터 지연을 막기위해 호출
+                            Task<DataItem> putDataTask = Wearable.getDataClient(getApplicationContext()).putDataItem(putDataReq);
+
                         } else if(ecuSubData.equals("fef7")){
                             //65271
 
@@ -614,11 +721,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             ecuSubData = ecuSubData + ecuData.substring(14,16);
                             int temp3 = Integer.parseInt(ecuSubData,16);
                             temp3 = temp3 * 5;
-                            temp3 = temp3 / 100;
+                            //temp3 = temp3 / 100;
+
+                            Double tem3 = temp3 / 100.0;
                             if(ecuSubData.equals("ffff")){
                                 ecuSubData = "?";
                             }else{
-                                ecuSubData = String.valueOf(temp3);
+                                ecuSubData = String.valueOf(tem3);
                             }
                             data22 = ecuSubData;
                             adapter.items.get(22).setVal(ecuSubData + " V");
@@ -629,11 +738,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             ecuSubData = ecuSubData + ecuData.substring(18,20);
                             int temp4 = Integer.parseInt(ecuSubData,16);
                             temp4 = temp4 * 5;
-                            temp4 = temp4 / 100;
+                            //temp4 = temp4 / 100;
+
+                            Double tem4 = temp4 / 100.0;
                             if(ecuSubData.equals("ffff")){
                                 ecuSubData = "?";
                             }else{
-                                ecuSubData = String.valueOf(temp4);
+                                ecuSubData = String.valueOf(tem4);
                             }
                             data23 = ecuSubData;
                             adapter.items.get(23).setVal(ecuSubData + " V");
@@ -644,19 +755,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             ecuSubData = ecuSubData + ecuData.substring(22,24);
                             int temp5 = Integer.parseInt(ecuSubData, 16);
                             temp5 = temp5 * 5;
-                            temp5 = temp5 / 100;
+                            //temp5 = temp5 / 100;
+
+                            Double tem5 = temp5 / 100.0;
                             if(ecuSubData.equals("ffff")){
                                 ecuSubData = "?";
                             }else{
-                                ecuSubData = String.valueOf(temp5);
+                                ecuSubData = String.valueOf(tem5);
                             }
                             data24 = ecuSubData;
                             adapter.items.get(24).setVal(ecuSubData + " V");
                             adapter.notifyDataSetChanged();
 
-                            //워치 데이터 3p-184 /watch5
+                            //워치데이터(배터리 볼티지) 4p-168 /watch6
+                            PutDataMapRequest watchData = PutDataMapRequest.create("/watch6");
+                            watchData.getDataMap().putString("168", data23);
+                            PutDataRequest putDataReq = watchData.asPutDataRequest();
+                            watchData.setUrgent();  //데이터 지연을 막기위해 호출
+                            Task<DataItem> putDataTask = Wearable.getDataClient(getApplicationContext()).putDataItem(putDataReq);
 
-                            //워치 데이터 4p-168 /watch6
 
                         } else if(ecuSubData.equals("fefc")){
                             //65276
@@ -689,7 +806,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             adapter.items.get(26).setVal(ecuSubData + " %");
                             adapter.notifyDataSetChanged();
 
-                            //워치 데이터 3p-96 /watch4
+                            //워치데이터(연료%) 3p-96 /watch4
+                            PutDataMapRequest watchData = PutDataMapRequest.create("/watch4");
+                            watchData.getDataMap().putString("96", data26);
+                            PutDataRequest putDataReq = watchData.asPutDataRequest();
+                            watchData.setUrgent();  //데이터 지연을 막기위해 호출
+                            Task<DataItem> putDataTask = Wearable.getDataClient(getApplicationContext()).putDataItem(putDataReq);
 
                         }
                     }catch (Exception e){
@@ -702,6 +824,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }//onCreate().....................................................................................................................................................
+
+    //키보드 숨기기 메서드
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(getApplicationContext());
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
 
     class ItemAdapter extends BaseAdapter {
@@ -778,6 +912,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     fab_con.setClickable(false);
                     fab_dis.setClickable(true);
                     BTState = "1";
+                    ArrayQueue.getInstance().enqueue("c can_start\r\n");
+                    //ArrayQueue.getInstance().enqueue("+++");
+                    //ArrayQueue.getInstance().enqueue("at+btinfo?");
+
 
 
                     break;
@@ -1007,13 +1145,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int getspeed = (int) getSpeed;
             et_KNOT.setText(String.valueOf(getspeed));
 
-            //워치 데이터 KNOT /watch0
+            //워치 데이터 KNOT /watch0  => 스마트워치 내부 GPS 이용
+            /*
             PutDataMapRequest watchData = PutDataMapRequest.create("/watch0");
             watchData.getDataMap().putString("KNOT", et_KNOT.getText().toString());
             PutDataRequest putDataReq = watchData.asPutDataRequest();
             watchData.setUrgent();  //데이터 지연을 막기위해 호출
             Task<DataItem> putDataTask = Wearable.getDataClient(getApplicationContext()).putDataItem(putDataReq);
             Log.d("GPS DATA KNOT : ", et_KNOT.getText().toString());
+            */
 
             //KNOT = et_KNOT.getText().toString();
         } catch (Exception e) { }
@@ -1036,13 +1176,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 et_KNOT.setText(String.valueOf(calspeed));
                 //KNOT = et_KNOT.getText().toString();
 
-                //워치 데이터 KNOT /watch0
+                //워치 데이터 KNOT /watch0 => 스마트워치 내부 GPS 이용
+                /*
                 PutDataMapRequest watchData = PutDataMapRequest.create("/watch0");
                 watchData.getDataMap().putString("KNOT", et_KNOT.getText().toString());
                 PutDataRequest putDataReq = watchData.asPutDataRequest();
                 watchData.setUrgent();  //데이터 지연을 막기위해 호출
                 Task<DataItem> putDataTask = Wearable.getDataClient(getApplicationContext()).putDataItem(putDataReq);
                 Log.d("GPS DATA KNOT : ", et_KNOT.getText().toString());
+                */
 
 
             }catch (Exception e) { }
@@ -1100,6 +1242,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
 
     @Override
     public void onBackPressed() {

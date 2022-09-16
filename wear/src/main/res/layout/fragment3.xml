@@ -1,12 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="450px"
+    android:layout_height="450px">
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/back3" />
+        android:background="@drawable/page3_back" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="101px"
+            android:layout_height="18px"
+            android:layout_marginBottom="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.518"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/kmcp_nosignal" />
+
+        <ImageView
+            android:id="@+id/fr3_iv_page"
+            android:layout_width="82px"
+            android:layout_height="10px"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/page_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/fr3_tv_fuellevel"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="46dp"
+            android:layout_marginEnd="36dp"
+            android:fontFamily="@font/helvetica33"
+            android:gravity="right"
+            android:text="0"
+            android:textSize="58sp"
+            app:layout_constraintEnd_toEndOf="@+id/fr3_tv_percent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/fr3_tv_kml"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/helvetica33"
+            android:text="  km/L"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/fr3_tv_fuellevel"
+            app:layout_constraintEnd_toStartOf="@+id/fr3_tv_fuellevel" />
+
+        <TextView
+            android:id="@+id/fr3_tv_fueltext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/helvetica33"
+            android:text="Fuel gauge"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@+id/fr3_tv_percent"
+            app:layout_constraintTop_toBottomOf="@+id/fr3_tv_percent" />
+
+        <TextView
+            android:id="@+id/fr3_tv_mileage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/helvetica33"
+            android:text="Mileage"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toTopOf="@+id/fr3_tv_kml"
+            app:layout_constraintEnd_toEndOf="@+id/fr3_tv_kml" />
+
+        <TextView
+            android:id="@+id/fr3_tv_fueleficiency"
+            android:layout_width="20sp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="29dp"
+            android:fontFamily="@font/helvetica33"
+            android:gravity="right"
+            android:text="0"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/fr3_tv_kml"
+            app:layout_constraintEnd_toEndOf="@+id/fr3_tv_kml" />
+
+        <TextView
+            android:id="@+id/fr3_tv_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="6dp"
+            android:fontFamily="@font/helvetica33"
+            android:text="  %"
+            android:textSize="29sp"
+            app:layout_constraintBottom_toBottomOf="@+id/fr3_tv_fuellevel"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/fr3_iv_fuel"
+            android:layout_width="25px"
+            android:layout_height="27px"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/nosignal_fuel"
+            app:layout_constraintBottom_toTopOf="@+id/fr3_tv_percent"
+            app:layout_constraintStart_toStartOf="@+id/fr3_tv_percent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.wear.widget.BoxInsetLayout>

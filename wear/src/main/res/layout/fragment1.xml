@@ -2,54 +2,135 @@
 <androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="450px"
+    android:layout_height="450px">
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/back" />
-
-    <com.mikhaellopez.circularprogressbar.CircularProgressBar
-        android:id="@+id/circularProgressBar_RPM"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cpb_background_progressbar_color="#00000000"
-        app:cpb_background_progressbar_width="0dp"
-        app:cpb_progress_direction="to_right"
-        app:cpb_progress_max="50"
-        app:cpb_progressbar_color="#3f51b5"
-        app:cpb_progressbar_width="10dp"
-        app:cpb_round_border="true" />
+        android:background="@drawable/page1_back" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/fr1_tv_knot"
-            android:layout_width="60sp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="95dp"
-            android:fontFamily="@font/helvetica33"
-            android:gravity="right"
-            android:paddingRight="5sp"
-            android:text="0"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+
+        <ImageView
+            android:id="@+id/fr1_iv_page"
+            android:layout_width="82px"
+            android:layout_height="10px"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/page_1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.497" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/fr1_tv_hourstext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/helvetica33"
+            android:text="HOURS"
+            android:textColor="#BCBCBC"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/fr1_tv_hour"
+            app:layout_constraintTop_toBottomOf="@+id/fr1_tv_hour" />
+
+        <TextView
+            android:id="@+id/fr1_tv_knot"
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="46dp"
+            android:fontFamily="@font/helvetica33"
+            android:gravity="right|top|center_vertical"
+            android:paddingTop="0sp"
+            android:text="0"
+            android:textColor="#BCBCBC"
+            android:textSize="58sp"
+            app:layout_constraintEnd_toEndOf="@+id/fr1_tv_knottext"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/fr1_tv_knottext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="104dp"
+            android:layout_marginEnd="28dp"
+            android:fontFamily="@font/helvetica33"
             android:text="KNOT"
-            app:layout_constraintBottom_toBottomOf="@+id/fr1_tv_knot"
-            app:layout_constraintStart_toEndOf="@+id/fr1_tv_knot" />
+            android:textColor="#BCBCBC"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/fr1_tv_rpm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="@font/helvetica33"
+            android:gravity="right"
+            android:text="0.0"
+            android:textColor="#BCBCBC"
+            android:textSize="32sp"
+            app:layout_constraintBottom_toBottomOf="@+id/fr1_tv_x1000"
+            app:layout_constraintEnd_toStartOf="@+id/fr1_tv_rpmtext"
+            app:layout_constraintTop_toTopOf="@+id/fr1_tv_rpmtext" />
+
+        <TextView
+            android:id="@+id/fr1_tv_rpmtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
+            android:fontFamily="@font/helvetica33"
+            android:text="RPM"
+            android:textColor="#BCBCBC"
+            android:textSize="19sp"
+            app:layout_constraintBottom_toBottomOf="@+id/fr1_tv_x1000"
+            app:layout_constraintEnd_toEndOf="@+id/fr1_tv_x1000" />
+
+        <TextView
+            android:id="@+id/fr1_tv_x1000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:fontFamily="@font/helvetica33"
+            android:text="X1000"
+            android:textColor="#BCBCBC"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/fr1_tv_knottext"
+            app:layout_constraintEnd_toEndOf="@+id/fr1_tv_hourstext" />
+
+        <TextView
+            android:id="@+id/fr1_tv_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="14dp"
+            android:fontFamily="@font/helvetica33"
+            android:gravity="right"
+            android:text="000,000,000"
+            android:textColor="#BCBCBC"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@+id/fr1_tv_knot"
+            app:layout_constraintTop_toTopOf="@+id/fr1_tv_knot" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="101px"
+            android:layout_height="18px"
+            android:layout_marginBottom="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.518"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/kmcp_nosignal" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

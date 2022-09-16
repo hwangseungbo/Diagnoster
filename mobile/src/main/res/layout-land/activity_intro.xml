@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="2280px"
     android:layout_height="1080px"
-    android:background="#FFFFFF"
+    android:background="#000000"
     tools:context=".IntroActivity">
 
     <ImageView
@@ -15,5 +15,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/kmcp_logo" />
+        app:srcCompat="@drawable/intro_image" />
 </androidx.constraintlayout.widget.ConstraintLayout>

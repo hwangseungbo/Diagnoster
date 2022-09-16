@@ -22,91 +22,204 @@
         app:layout_boxedEdges="all">
 
         <ScrollView
-            android:id="@+id/scrollView"
+            android:id="@+id/sv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginStart="10sp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_KNOT"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/helvetica33"
-                    android:text="0"
-                    android:textColor="#36BF0F"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/tv_degree1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/helvetica33"
-                    android:text=" KNOT"
-                    android:textColor="#36BF0F"
-                    android:textSize="14sp" />
-            </LinearLayout>
+            <requestFocus
+                android:focusable="true"
+                android:focusableInTouchMode="true" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_rpm"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/helvetica33"
-                    android:text="0"
-                    android:textColor="#36BF0F"
-                    android:textSize="20sp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_degree2"
+                    <TextView
+                        android:id="@+id/tv_KNOT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/helvetica33"
+                        android:text="0"
+                        android:textColor="#0036BF0F"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_degree1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/helvetica33"
+                        android:text=" KNOT"
+                        android:textColor="#0036BF0F"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/helvetica33"
-                    android:text=" RPM"
-                    android:textColor="#36BF0F"
-                    android:textSize="14sp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_rpm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/helvetica33"
+                        android:text="0"
+                        android:textColor="#0036BF0F"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_degree2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/helvetica33"
+                        android:text=" RPM"
+                        android:textColor="#0036BF0F"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_hour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/helvetica33"
+                        android:text="0"
+                        android:textColor="#0036BF0F"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_degree3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/helvetica33"
+                        android:text=" Hours"
+                        android:textColor="#0036BF0F"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_cooltemp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/helvetica33"
+                        android:text="0"
+                        android:textColor="#0036BF0F"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_degree4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/helvetica33"
+                        android:text=" °C"
+                        android:textColor="#0036BF0F"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_fuellevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/helvetica33"
+                        android:text="0"
+                        android:textColor="#0036BF0F"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_degree5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/helvetica33"
+                        android:text=" %"
+                        android:textColor="#0036BF0F"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_fuelefficiency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/helvetica33"
+                        android:text="0"
+                        android:textColor="#0036BF0F"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_degree6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/helvetica33"
+                        android:text=" km/L"
+                        android:textColor="#0036BF0F"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_batteryvoltage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/helvetica33"
+                        android:text="0"
+                        android:textColor="#0036BF0F"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_degree7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/helvetica33"
+                        android:text=" V"
+                        android:textColor="#0036BF0F"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_hour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/helvetica33"
-                    android:text="\?"
-                    android:textColor="#36BF0F"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/tv_degree3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/helvetica33"
-                    android:text=" Hours"
-                    android:textColor="#36BF0F"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-        </LinearLayout>
+        </ScrollView>
 
 
     </FrameLayout>

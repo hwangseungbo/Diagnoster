@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/box_inset_layout_padding"
+    tools:context=".IntroActivity"
+    tools:deviceIds="wear">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/loading_image" />
+
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        android:id="@+id/circularProgressBar_RPM2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:cpb_background_progressbar_color="#00000000"
+        app:cpb_background_progressbar_width="5dp"
+        app:cpb_indeterminate_mode="true"
+        app:cpb_progress_max="100"
+        app:cpb_progressbar_color="#FFFFFF"
+        app:cpb_progressbar_width="5dp"
+        app:cpb_round_border="true" />
+</androidx.wear.widget.BoxInsetLayout>

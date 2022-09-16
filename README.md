@@ -20,4 +20,4 @@
 
 ### GIF Image
 -----
-<p align="center"><img src="/img/1.gif" width="250"></p>
+<p align="center"><img src="/img/1.gif" width="800"></p>

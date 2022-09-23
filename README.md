@@ -27,8 +27,6 @@ develop by 황승보<br />
 email:ghkdtmdqh@naver.com<br />
 hp:010-6787-8433<br />
 <br />
-<br />
-<br />
 designed by 하일룡<br />
 email:dlffyd6576@naver.com<br />
 hp:010-4710-6485

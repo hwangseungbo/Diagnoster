@@ -23,6 +23,12 @@
 <p align="center"><img src="/img/1.gif" width="800"></p>
 
 ### 개발자 및 디자이너
-develop by 황승보 (email:ghkdtmdqh@naver.com  hp:010-6787-8433)
+develop by 황승보
+email:ghkdtmdqh@naver.com  
+hp:010-6787-8433
 <br />
-designed by 하일룡(email:dlffyd6576@naver.com  hp:010-4710-6485)
+<br />
+<br />
+designed by 하일룡
+email:dlffyd6576@naver.com
+hp:010-4710-6485

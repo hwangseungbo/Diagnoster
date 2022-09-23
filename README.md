@@ -22,6 +22,8 @@
 -----
 <p align="center"><img src="/img/1.gif" width="800"></p>
 
+<br />
+
 ### 개발자 및 디자이너
 -----
 develop by 황승보<br />
